@@ -27,6 +27,9 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="../css/style.css" />
 
+	 <!-- jQuery library -->
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -36,45 +39,29 @@
 
 	<style>
 		.submenu {
-			display: none;
-			/* Hide submenu by default */
-			position: absolute;
-			top: 100%;
-			/* Position the submenu below the parent item */
-			left: 0;
-			background-color: #fff;
-			/* Background color */
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			/* Add shadow */
-			z-index: 1;
-			/* Ensure it appears above other elements */
-		}
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
 
-		.submenu li {
-			padding: 10px;
-			/* Add padding to submenu items */
-		}
+        .submenu li {
+            padding: 10px;
+        }
 
-		.submenu li a {
-			display: block;
-			/* Make submenu items block-level for better spacing */
-			color: #333;
-			/* Text color */
-			text-decoration: none;
-			/* Remove underline from links */
-		}
+        .submenu li a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
 
-		.submenu li a:hover {
-			background-color: #f4f4f4;
-			/* Background color on hover */
-		}
-
-		/* Show submenu when hovering or clicking on the parent item */
-		.submenu-toggle:hover+.submenu,
-		.submenu-toggle:focus+.submenu {
-			display: block;
-		}
-	</style>
+        .submenu li a:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
 
 </head>
 
@@ -158,28 +145,20 @@
 			<div id="responsive-nav">
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
-					<<li <?php if ($currentpage == 'manage_product.php')
+					<li <?php if ($currentpage == 'manage_product.php')
 						echo 'class="active"'; ?>>
-						<a href="#">Manage Products</a>
+						<a class="submenu-toggle">Manage Products</a>
 						<ul class="submenu">
-							<li><a href="viewproduct.php">Product Management</a></li>
-							<li><a href="upload.php">Add Product</a></li>
-							<li><a href="store.php">Modify Product</a></li>
+							<li><a href="../upload.php">Add Product</a></li>
+							<li><a href="../viewproduct.php">Modify Product</a></li>
 						</ul>
-						</li>
-						<li <?php if ($currentpage == 'add_staff.php')
-							echo 'class="active"'; ?>>
-							<a href="add_staff.php">Add Staff</a>
-						</li>
-						<li <?php if ($currentpage == 'view_staff.php')
-							echo 'class="active"'; ?>>
-							<a href="view_staff.php">Manage Staffs</a>
-						</li>
-				</ul>
-
-
-
-
+					</li>
+					<li <?php if ($currentpage == 'add_staff.php')
+						echo 'class="active"'; ?>><a href="add_staff.php">Add
+							Staff</a></li>
+					<li <?php if ($currentpage == 'view_staff.php')
+						echo 'class="active"'; ?>><a
+							href="view_staff.php">Manage Staffs</a></li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -188,6 +167,7 @@
 		<!-- /container -->
 	</nav>
 	<!-- /NAVIGATION -->
+
 
 	<!-- SECTION -->
 	<div class="section">
@@ -205,6 +185,14 @@
 					<script src="js/nouislider.min.js"></script>
 					<script src="js/jquery.zoom.min.js"></script>
 					<script src="js/main.js"></script>
+
+					<script>
+						$(document).ready(function () {
+							$('.submenu-toggle').click(function () {
+								$(this).siblings('.submenu').toggle();
+							});
+						});
+					</script>
 
 </body>
 
