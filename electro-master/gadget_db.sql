@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 22, 2024 at 05:23 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Mar 25, 2024 at 07:37 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,6 +62,63 @@ INSERT INTO `product` (`product_id`, `product_name`, `description`, `quantity_av
 (17, 'kiongpeng2', 'good', 100, 'apple', 1, 'product07.png', 888899),
 (18, 'kiongpeng100', 'good', 100, 'apple', 1, 'product05.png', 8888);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `staff_id` int(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(75) NOT NULL,
+  `dob` varchar(15) NOT NULL,
+  `createdOn` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `name`, `email`, `password`, `dob`, `createdOn`) VALUES
+(2, 'staff', 'staff@staff.com', '098f6bcd4621d373cade4e832627b4f6', '3/25/2024', '2024-03-25 07:49:41'),
+(3, 'jun', 'jun@jun.com', '098f6bcd4621d373cade4e832627b4f6', '2018-07-20', '2024-03-25 16:31:14'),
+(8, 'junsdf', 'junbo@efgmail.com', '098f6bcd4621d373cade4e832627b4f6', '1000-04-23', '2024-03-25 16:44:31'),
+(10, 'dasf', 'junboyeqw@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '4422-03-21', '2024-03-25 10:55:11'),
+(11, 'saf', 'jun4219676@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '0444-02-04', '2024-03-25 10:56:52'),
+(12, 'saf', 'jun4219676@231com', '098f6bcd4621d373cade4e832627b4f6', '0444-02-04', '2024-03-25 10:57:21'),
+(13, '312421', 'junb21@o5gmail.com', '098f6bcd4621d373cade4e832627b4f6', '0021-04-04', '2024-03-25 10:57:31'),
+(14, 'test', 'ni@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '2022-02-22', '2024-03-25 17:32:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `name` varchar(60) NOT NULL,
+  `email` varchar(80) NOT NULL,
+  `password` varchar(70) NOT NULL,
+  `c_password` varchar(70) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `phone` varchar(14) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `zip` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`name`, `email`, `password`, `c_password`, `UserId`, `phone`, `address`, `city`, `zip`) VALUES
+('test', 'test@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '', 1, '0123456', 'kampar', '56', 41050),
+('admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '', 2, '', '', '', NULL),
+('123', '123@gmail.com', '202cb962ac59075b964b07152d234b70', '', 3, '15615616516', 'kampar jalan seksyen', 'Klang', 321421421),
+('nono', 'utar@utar', '4b9362f1fc7ce97727ffbc183ffa27c2', '', 4, '', '', '', NULL);
+
 --
 -- Indexes for dumped tables
 --
@@ -73,6 +130,18 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
 
 --
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`staff_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`UserId`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -81,6 +150,18 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

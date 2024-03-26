@@ -1,4 +1,5 @@
 <?php
+//new account
 require ('../config.php');
 include ('../auth.php');
 
