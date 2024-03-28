@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2024 at 04:56 AM
+-- Generation Time: Mar 28, 2024 at 11:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,7 +37,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`user_id`, `updated_at`) VALUES
-(1, '2024-03-28 03:10:15');
+(1, '2024-03-28 08:35:58');
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,29 @@ CREATE TABLE `cart_item` (
 
 INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`) VALUES
 (9, 1, 2, 1),
-(12, 1, 4, 1);
+(12, 1, 4, 1),
+(0, 1, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_id` int(100) NOT NULL,
+  `category_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(1, 'laptop'),
+(2, 'smartphone'),
+(3, 'camera'),
+(4, 'accessories');
 
 -- --------------------------------------------------------
 
@@ -103,6 +125,46 @@ INSERT INTO `order_detail` (`order_detail_id`, `order_id`, `product_id`, `quanti
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paymentmethod`
+--
+
+CREATE TABLE `paymentmethod` (
+  `PaymentMID` int(40) NOT NULL,
+  `AccountNum` int(11) NOT NULL,
+  `ExpirationDate` date NOT NULL,
+  `SecurityCode` int(11) NOT NULL,
+  `BankName` varchar(255) NOT NULL,
+  `Pstatus` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `paymentmethod`
+--
+
+INSERT INTO `paymentmethod` (`PaymentMID`, `AccountNum`, `ExpirationDate`, `SecurityCode`, `BankName`, `Pstatus`) VALUES
+(7, 1477, '2024-03-11', 12, '12', 'success'),
+(8, 12, '2024-03-11', 12, '12', 'fail'),
+(9, 12, '2024-03-11', 12, '12', 'success'),
+(10, 12, '2024-03-11', 12, '12', 'success'),
+(11, 13, '2024-03-11', 12, '12', 'pending'),
+(12, 12, '2024-03-11', 12, '12', 'success'),
+(13, 9999, '2024-03-11', 12, '12', 'pending'),
+(14, 12, '2024-03-11', 12, '12', 'success'),
+(15, 12, '2024-03-11', 12, '12', 'success'),
+(16, 12, '2024-03-11', 12, '12', 'success'),
+(17, 12, '2024-03-11', 12, '12', 'success'),
+(18, 12, '2024-03-11', 12, '12', 'success'),
+(19, 12, '2024-03-11', 12, '12', 'success'),
+(21, 12, '2024-03-11', 12, '12', 'success'),
+(22, 12, '2024-03-11', 12, '12', 'success'),
+(23, 12, '2024-03-11', 12, '12', 'success'),
+(24, 12, '2024-03-11', 12, '12', 'success'),
+(25, 12, '2024-03-11', 12, '12', 'success'),
+(27, 23, '2024-03-05', 23, '23', 'success');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -122,25 +184,20 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `description`, `quantity_available`, `brand`, `category_id`, `image_url`, `price`) VALUES
-(1, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(2, 'handphone', 'I love you', 500, 'pineapple', 2, 'b.png', 7899),
-(3, 'likuan', 'nn', 100, 'dddcdsvs', 2, 'product06.png', 100000),
-(4, 'likuan', 'nn', 100, 'dddcdsvs', 2, 'product06.png', 100000),
-(5, 'handphone', 'I love you', 500, 'pineapple', 2, 'b.png', 7899),
-(6, 'handphone', 'I love you', 500, 'pineapple', 2, 'b.png', 7899),
-(7, 'handphone', 'I love you', 500, 'pineapple', 2, 'b.png', 7899),
-(8, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(9, 'handphone', 'I love you', 500, 'pineapple', 2, 'b.png', 7899),
-(10, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(11, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(12, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(13, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(14, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(16, 'kiongpeng', 'good', 100, 'apple', 1, 'product08.png', 8888),
-(17, 'kiongpeng2', 'good', 100, 'apple', 1, 'product07.png', 888899),
-(18, 'kiongpeng100', 'good', 100, '1', 1, 'product05.png', 100),
-(0, 'tv', '43 inch', 12, 'samsung', 4, 'product08.png', 100),
-(0, 'REcord', 'rec', 12, 'samsung', 4, 'product09.png', 30);
+(13, 'Asus Laptop', 'i7', 1000, 'Asus', 1, 'product01.png', 1999),
+(14, 'Hp laptop ', 'i7', 100, 'HP', 1, 'product01.png', 1999),
+(16, 'Acer laptop', 'i3', 100, 'Acer', 1, 'product08.png', 3999),
+(17, 'samsung galaxy s3', '256gb', 100, 'samsung', 2, 'product07.png', 2999),
+(18, 'basues earphone', 'clear/ loud', 100, 'basues', 4, 'product05.png', 1999),
+(0, 'Samsung galaxy s4', '256gb', 1000, 'samsung', 2, 'product07.png', 3999),
+(0, 'earphone', 'good sound', 100, 'basues', 4, 'earphone.jpg', 1000),
+(0, 'Canon Camera s1', '1080px', 200, 'canon', 3, 'shop02.png', 2000),
+(0, 'Asus Rog', 'I9 512ssd', 100, 'Asus', 1, 'product06.png', 3999),
+(0, 'Samsung earphone K9', '100hz', 3000, 'samsung', 4, 'shop03.png', 599),
+(0, 'Samsung Tablet s9', '1080 144hz', 1000, 'samsung', 2, 'product04.png', 1999),
+(0, 'iphone 15', '3000 aamh', 1000, 'Apple', 2, 'iphone.jpg', 4999),
+(0, 'Canon camera s9', '300hz', 500, 'Canon', 3, 'camera1.jpg', 8999),
+(0, 'Insta X', 'Can shot high pixel photo', 5000, 'Insta', 3, 'camera2.jpg', 3499);
 
 -- --------------------------------------------------------
 
@@ -198,11 +255,24 @@ INSERT INTO `user` (`name`, `email`, `password`, `c_password`, `UserId`, `phone`
 ('admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '', 2, '', '', '', NULL),
 ('123', '123@gmail.com', '202cb962ac59075b964b07152d234b70', '', 3, '15615616516', 'kampar jalan seksyen', 'Klang', 321421421),
 ('nono', 'utar@utar', '4b9362f1fc7ce97727ffbc183ffa27c2', '', 4, '', '', '', NULL),
-('user', 'user@user', 'ee11cbb19052e40b07aac0ca060c23ee', '', 5, '01156', 'ffdsaffdasf', 'fdsa', 566456);
+('user', 'user@user', 'ee11cbb19052e40b07aac0ca060c23ee', '', 5, '01156', 'ffdsaffdasf', 'fdsa', 566456),
+('tt', 'tt@tt', 'accc9105df5383111407fd5b41255e23', '', 6, '012-0000000', 'tt', 'miri', 12);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `paymentmethod`
+--
+ALTER TABLE `paymentmethod`
+  ADD PRIMARY KEY (`PaymentMID`);
 
 --
 -- Indexes for table `staff`
@@ -221,6 +291,18 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `paymentmethod`
+--
+ALTER TABLE `paymentmethod`
+  MODIFY `PaymentMID` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
@@ -230,7 +312,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

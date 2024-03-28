@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>Laptop</title>
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -74,11 +74,6 @@
 						<div >
 							<div class="header-ctn">
 								<!-- Cart -->
-								<select id="productOptions">
-    								<option value="management" selected>Product Management</option>
-   									 <option value="add">Add Product</option>
-   									<option value="modify">Modify Product</option>
-								</select>
 								<div class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
