@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Electro - HTML Ecommerce Template</title>
+	<title>Update Product</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -83,6 +83,8 @@
 			<div class="row">
 				<div class="container">
 					<div class="row">
+					<h1>Update Product</h1>
+					<br>
 						<?php
 						require ('../database.php');
 						$id = $_REQUEST['id'];
@@ -100,29 +102,40 @@
 							$brand = $_REQUEST['brand'];
 							$category = $_REQUEST['category'];
 							$update = "UPDATE product set 
-product_name='" . $product_name . "', price='" . $price . "', quantity_available='" . $quantity . "',
-description='" . $description . "',brand='" . $brand . "',category_id='" . $category . "' where product_id='" . $id . "'";
+							product_name='" . $product_name . "', price='" . $price . "', quantity_available='" . $quantity . "',
+							description='" . $description . "',brand='" . $brand . "',category_id='" . $category . "' where product_id='" . $id . "'";
 							mysqli_query($con, $update) or die(mysqli_error($con));
 							$status = "Product Record Updated Successfully. </br></br>
-<a href='viewproduct.php'>View Updated Record</a>";
+							<a href='viewproduct.php'>View Updated Record</a>";
 							echo '<p style="color:#008000;">' . $status . '</p>';
 						} else {
 							?>
 							<form name="form" method="post" action="">
 								<input type="hidden" name="new" value="1" />
 								<input name="id" type="hidden" value="<?php echo $row['product_id']; ?>" />
+								<h5>Product name <h5>
 								<p><input type="text" name="product_name" placeholder="Update Product Name" required
 										value="<?php echo $row['product_name']; ?>" /></p>
+								<br>
+								<h5>Product price <h5>
 								<p><input type="number" name="price" step="0.01" min="0"
 										placeholder="Enter Product Price (RM)" required
 										value="<?php echo $row['price']; ?>" /></p>
+								<br>
+							    <h5>Product quantity <h5>
 								<p><input type="number" name="quantity" placeholder="Enter Product Quantity" required
 										value="<?php echo $row['quantity_available']; ?>" /></p>
+								<br>
+								<h5>Product description <h5>
 								<p><input type="text" name="description" placeholder="Enter Product Description" required
 										value="<?php echo $row['description']; ?>" /></p>
+								<br>
+								<h5>Product brand <h5>
 								<p><input type="text" name="brand" placeholder="Enter Product Brand" required
-										value="<?php echo $row['category_id']; ?>" /></p>
+										value="<?php echo $row['brand']; ?>" /></p>
 								<!-- Styled Category Selection Dropdown -->
+								<br>
+								<h5>Product category <h5>
 								<p>
 									<select name="category" required>
 										<option value="" disabled>Select Category</option>
@@ -140,6 +153,7 @@ description='" . $description . "',brand='" . $brand . "',category_id='" . $cate
 										</option>
 									</select>
 								</p>
+								<br>
 								<p><input name="submit" type="submit" value="Update" /></p>
 							</form>
 						<?php } ?>
@@ -155,112 +169,6 @@ description='" . $description . "',brand='" . $brand . "',category_id='" . $cate
 	<!-- /container -->
 	</div>
 	<!-- /SECTION -->
-
-	<!-- NEWSLETTER -->
-	<div id="newsletter" class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="newsletter">
-						<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-						<form>
-							<input class="input" type="email" placeholder="Enter Your Email">
-							<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-						</form>
-						<ul class="newsletter-follow">
-							<li>
-								<a href="#"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-instagram"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-pinterest"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /NEWSLETTER -->
-
-	<!-- FOOTER -->
-	<footer id="footer">
-		<!-- top footer -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-3 col-xs-6">
-						<div class="footer">
-							<h3 class="footer-title">About Us</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-								incididunt ut.</p>
-							<ul class="footer-links">
-								<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-								<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-								<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 col-xs-6">
-						<div class="footer">
-							<h3 class="footer-title">Category</h3>
-							<ul class="footer-links">
-								<li><a href="laptop.php">Laptops</a></li>
-								<li><a href="smartphone.php">Smartphones</a></li>
-								<li><a href="camera.php">Cameras</a></li>
-								<li><a href="acc.php">Accessories</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /top footer -->
-
-		<!-- bottom footer -->
-		<div id="bottom-footer" class="section">
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<ul class="footer-payments">
-							<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-							<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-						</ul>
-						<span class="copyright">
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script> All rights reserved | This
-							template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</span>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /bottom footer -->
-	</footer>
-	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
