@@ -64,7 +64,7 @@ session_start();
          $user = mysqli_fetch_assoc($result);
          $_SESSION['user_name'] = $user['name'];
 
-         header("Location: account.php");
+         header("Location: ../store.php");
          exit();
       } else {
          echo "<div class='form'>
