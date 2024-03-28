@@ -398,7 +398,7 @@ document.getElementById('checkout-btn').addEventListener('click', function (even
         alert('Submitted');
 
         // Redirect to another PHP file
-        window.location.href = 'other_php_file.php';
+        window.location.href = '../store.php';
     });
     </script>
 
