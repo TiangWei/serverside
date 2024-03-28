@@ -79,15 +79,105 @@
    									 <option value="add">Add Product</option>
    									<option value="modify">Modify Product</option>
 								</select>
-								<div class="dropdown">
+								  <!-- <div class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
 										<div class="qty">3</div>
 									</a>
 									<div class="cart-dropdown">
-										<div class="cart-list">
-											<div class="product-widget">
+										<div class="cart-list">  -->
+										<?php
+											// Step 1: Establish connection to MySQL database
+											$servername = "localhost";
+											$username = "root"; // Replace with your MySQL username
+											$password = ""; // Replace with your MySQL password
+											$dbname = "gadget_db"; // Replace with your database name
+
+											$conn = new mysqli($servername, $username, $password, $dbname);
+
+											// Check connection
+											if ($conn->connect_error) {
+												die("Connection failed: " . $conn->connect_error);
+											}
+
+											$sql = "SELECT * FROM cart_item"; 
+											$result = $conn->query($sql);
+											$selected_item = 0;
+											$subtotal = 0;
+											$cart_products = array(); // Associative array to store products by ID
+
+											// Step 2: Loop through cart items
+											if ($result->num_rows > 0) {
+												while($row = $result->fetch_assoc()) {
+													$sql1 = "SELECT * FROM product WHERE product_id=".$row["product_id"]; 
+													$result1 = $conn->query($sql1);
+													$row1 = $result1->fetch_assoc();
+
+													$product_id = $row['product_id'];
+													$quantity = $row['quantity'];
+													$price = $row1['price'];
+
+													// Check if product already exists in cart
+													if (array_key_exists($product_id, $cart_products)) {
+														// Update quantity and subtotal
+														$cart_products[$product_id]['quantity'] += $quantity;
+														$subtotal += $quantity * $price;
+													} else {
+														// Add new product entry
+														$cart_products[$product_id] = array(
+															'quantity' => $quantity,
+															'price' => $price,
+															'product_name' => $row1['product_name'], // Store product name
+															'image_url' => $row1['image_url'] // Store image URL
+														);
+														$subtotal += $quantity * $price;
+														$selected_item++; // Increment total selected items
+													}
+												}
+											}
+
+											// Step 3: Display cart products
+											echo "<div class='dropdown'>";
+											echo "<a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>";
+											echo "<i class='fa fa-shopping-cart'></i>";
+											echo "<span>Your Cart</span>";
+											echo "<div class='qty'>".$selected_item."</div>";
+											echo "</a>";
+											echo "<div class='cart-dropdown'>";
+											echo "<div class='cart-list'>";
+
+											foreach ($cart_products as $product_id => $product) {
+												echo "<div class='product-widget'>";
+												echo "<div class='product-img'>";
+												echo "<img src='./img/" . $product["image_url"] . "' alt=''>";
+												echo "</div>";
+												echo "<div class='product-body'>";
+												echo "<h3 class='product-name'><a href='#'>" . $product["product_name"] . "</a></h3>";
+												echo "<h4 class='product-price'><span class='qty'>" . $product['quantity'] . "x</span>$" . $product['price'] . "</h4>";
+												echo "</div>";
+												echo "<button class='delete' data-product-id='" . $product_id . "'><i class='fa fa-close'></i></button>";
+												echo "</div>";
+											}
+
+											echo "</div>"; // Close cart-list
+											echo "<div class='cart-summary'>";
+											echo "<small>".$selected_item." Item(s) selected</small>";
+											echo "<h5>SUBTOTAL: $".$subtotal."</h5>";
+											echo "</div>"; // Close cart-summary
+											echo "<div class='cart-btns'>";
+											echo "<a href='#'>View Cart</a>";
+											echo "<a href='#'>Checkout  <i class='fa fa-arrow-circle-right'></i></a>";
+											echo "</div>"; // Close cart-btns
+											echo "</div>"; // Close cart-dropdown
+											echo "</div>"; // Close dropdown
+
+											$conn->close();
+										?>
+
+
+										
+											 <!-- <div class="product-widget">
 												<div class="product-img">
 													<img src="./img/product01.png" alt="">
 												</div>
@@ -117,8 +207,8 @@
 											<a href="#">View Cart</a>
 											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
-									</div>
-								</div>
+									 </div>
+								</div>   -->
 								<!-- /Cart -->
 
 								<!-- Menu Toogle -->
@@ -170,13 +260,24 @@
 							<div class="section">
     <div class="container">
         <div class="row">
-            <?php
+		<?php
             // Step 1: Establish connection to MySQL database
-			require('database.php');
+            $servername = "localhost";
+            $username = "root"; // Replace with your MySQL username
+            $password = ""; // Replace with your MySQL password
+            $dbname = "gadget_db"; // Replace with your database name
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+                echo "fail";
+            }
 			
 
-            $sql = "SELECT * FROM product"; 
-            $result = $con->query($sql);
+$sql = "SELECT * FROM product"; 
+            $result = $conn->query($sql);
 
             // Step 3: Display products
             if ($result->num_rows > 0) {
@@ -188,8 +289,6 @@
         echo "</div>";
         echo "<div class='product-body'>";
         echo "<h3 class='product-name'><a href='#'>" . $row["product_name"] . "</a></h3>";
-		echo "<h3 class='product-name'><a href='#'>" . $row["brand"] . "</a></h3>";
-		echo "<h5><a href='#'>" . $row["description"] . "</a></h5>";
         echo "<h4 class='product-price'>$" . $row["price"] . "</h4>";
         echo "<div class='product-rating'>";
         echo "</div>";
@@ -212,7 +311,7 @@
             
 
             // Step 4: Close database connection
-            $con->close();
+            $conn->close();
             ?>
         </div>
     </div>
@@ -353,23 +452,81 @@
 	document.getElementById("productOptions").addEventListener("change", function() {
         var selectedOption = this.value;
         if (selectedOption === "add") {
-            window.location.href = "upload.php";  // Redirect to Add Product page
+            window.location.href = "a.php";  // Redirect to Add Product page
         } else if (selectedOption === "modify") {
-            window.location.href = "viewproduct.php";  // Redirect to Modify Product page
+            window.location.href = "modify_product.html";  // Redirect to Modify Product page
         }
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.add-to-cart-btn').click(function() {
+
+	$(document).ready(function() {
+		$('.add-to-cart-btn').click(function() {
             var productId = $(this).data('product-id');
 			var quantity = $(this).closest('.add-to-cart').prev().find('.quantity-input').val();
             // Now you can perform actions based on the product ID and quantity, like adding to cart
             console.log("Product ID: " + productId);
             console.log("Quantity: " + quantity);
-            // Here you can make an AJAX request to add the product to the cart or perform other actions
+            
+			$.ajax({
+                url: 'addToCart.php',
+                method: 'POST',
+                data: {
+                    productId: productId,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    // Handle success response, if any
+                    console.log(response);
+					location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
         });
+
+        $('.delete').click(function() {
+            // Get the product ID of the product to delete
+            var productId = $(this).data('product-id');
+            var deleteButton = $(this);
+
+            // Send an AJAX request to delete the product from the cart
+            $.ajax({
+                url: 'deleteFromCart.php', // Replace with the URL of your PHP script to handle the deletion
+                method: 'POST',
+                data: { productId: productId },
+                success: function(response) {
+                   	deleteButton.closest('.product-widget').remove();
+					updateCartSummary();
+                    console.log('Product deleted successfully');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error('Error deleting product:', error);
+                }
+            });
+        });
+		function updateCartSummary() {
+        // Calculate updated cart summary
+        var totalItems = $('.product-widget').length; // Count number of items in cart
+        var totalSelectedItems = 0;
+        var subtotal = 0;
+        
+        $('.product-widget').each(function() {
+            var quantity = parseInt($(this).find('.qty').text()); // Get quantity of each product
+            var price = parseFloat($(this).find('.product-price').text().replace('$', '')); // Get price of each product
+            totalSelectedItems += quantity;
+            subtotal += quantity * price;
+        });
+        
+        // Update cart summary elements in the UI
+        $('.qty').text(totalItems);
+        $('.cart-summary small').text(totalSelectedItems + " Item(s) selected");
+        $('.cart-summary h5').text("SUBTOTAL: $" + subtotal.toFixed(2));
+    }
     });
 </script>
 </body>
