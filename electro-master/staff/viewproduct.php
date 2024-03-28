@@ -87,7 +87,7 @@
 				$message = "";
 
 				// Fetch products from database
-				$sel_query = "SELECT * FROM product ORDER BY product_id DESC";
+				$sel_query = "SELECT * FROM product ORDER BY category_id";
 				$result = mysqli_query($con, $sel_query);
 
 				if (!$result) {
