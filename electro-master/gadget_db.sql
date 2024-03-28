@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 07:37 PM
+-- Generation Time: Mar 28, 2024 at 05:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,125 @@ SET time_zone = "+00:00";
 --
 -- Database: `gadget_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `user_id` int(100) NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`user_id`, `updated_at`) VALUES
+(1, '2024-03-28 03:10:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_item`
+--
+
+CREATE TABLE `cart_item` (
+  `cart_item_id` int(100) NOT NULL,
+  `cart_id` int(100) NOT NULL,
+  `product_id` int(100) NOT NULL,
+  `quantity` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_item`
+--
+
+INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`) VALUES
+(9, 1, 2, 1),
+(12, 1, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
+
+CREATE TABLE `order` (
+  `order_id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
+  `payment_id` int(100) DEFAULT NULL,
+  `amount` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`order_id`, `user_id`, `payment_id`, `amount`) VALUES
+(1, 1, NULL, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_detail`
+--
+
+CREATE TABLE `order_detail` (
+  `order_detail_id` int(100) NOT NULL,
+  `order_id` int(100) NOT NULL,
+  `product_id` int(100) NOT NULL,
+  `quantity` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`order_detail_id`, `order_id`, `product_id`, `quantity`) VALUES
+(1, 1, 1, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentmethod`
+--
+
+CREATE TABLE `paymentmethod` (
+  `PaymentMID` int(40) NOT NULL,
+  `AccountNum` int(11) NOT NULL,
+  `ExpirationDate` date NOT NULL,
+  `SecurityCode` int(11) NOT NULL,
+  `BankName` varchar(255) NOT NULL,
+  `Pstatus` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `paymentmethod`
+--
+
+INSERT INTO `paymentmethod` (`PaymentMID`, `AccountNum`, `ExpirationDate`, `SecurityCode`, `BankName`, `Pstatus`) VALUES
+(7, 1477, '2024-03-11', 12, '12', 'success'),
+(8, 12, '2024-03-11', 12, '12', 'fail'),
+(9, 12, '2024-03-11', 12, '12', 'success'),
+(10, 12, '2024-03-11', 12, '12', 'success'),
+(11, 13, '2024-03-11', 12, '12', 'pending'),
+(12, 12, '2024-03-11', 12, '12', 'success'),
+(13, 9999, '2024-03-11', 12, '12', 'pending'),
+(14, 12, '2024-03-11', 12, '12', 'success'),
+(15, 12, '2024-03-11', 12, '12', 'success'),
+(16, 12, '2024-03-11', 12, '12', 'success'),
+(17, 12, '2024-03-11', 12, '12', 'success'),
+(18, 12, '2024-03-11', 12, '12', 'success'),
+(19, 12, '2024-03-11', 12, '12', 'success'),
+(21, 12, '2024-03-11', 12, '12', 'success'),
+(22, 12, '2024-03-11', 12, '12', 'success'),
+(23, 12, '2024-03-11', 12, '12', 'success'),
+(24, 12, '2024-03-11', 12, '12', 'success'),
+(25, 12, '2024-03-11', 12, '12', 'success'),
+(27, 23, '2024-03-05', 23, '23', 'success');
 
 -- --------------------------------------------------------
 
@@ -57,10 +176,11 @@ INSERT INTO `product` (`product_id`, `product_name`, `description`, `quantity_av
 (12, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
 (13, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
 (14, 'Computer', 'good', 100, 'apple', 1, 'product01.png', 100),
-(15, 'tiang', 'good', 100, 'apple', 1, 'product09.png', 9999),
 (16, 'kiongpeng', 'good', 100, 'apple', 1, 'product08.png', 8888),
 (17, 'kiongpeng2', 'good', 100, 'apple', 1, 'product07.png', 888899),
-(18, 'kiongpeng100', 'good', 100, 'apple', 1, 'product05.png', 8888);
+(18, 'kiongpeng100', 'good', 100, '1', 1, 'product05.png', 100),
+(0, 'tv', '43 inch', 12, 'samsung', 4, 'product08.png', 100),
+(0, 'REcord', 'rec', 12, 'samsung', 4, 'product09.png', 30);
 
 -- --------------------------------------------------------
 
@@ -117,17 +237,18 @@ INSERT INTO `user` (`name`, `email`, `password`, `c_password`, `UserId`, `phone`
 ('test', 'test@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '', 1, '0123456', 'kampar', '56', 41050),
 ('admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '', 2, '', '', '', NULL),
 ('123', '123@gmail.com', '202cb962ac59075b964b07152d234b70', '', 3, '15615616516', 'kampar jalan seksyen', 'Klang', 321421421),
-('nono', 'utar@utar', '4b9362f1fc7ce97727ffbc183ffa27c2', '', 4, '', '', '', NULL);
+('nono', 'utar@utar', '4b9362f1fc7ce97727ffbc183ffa27c2', '', 4, '', '', '', NULL),
+('user', 'user@user', 'ee11cbb19052e40b07aac0ca060c23ee', '', 5, '01156', 'ffdsaffdasf', 'fdsa', 566456);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `product`
+-- Indexes for table `paymentmethod`
 --
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`);
+ALTER TABLE `paymentmethod`
+  ADD PRIMARY KEY (`PaymentMID`);
 
 --
 -- Indexes for table `staff`
@@ -146,10 +267,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `paymentmethod`
 --
-ALTER TABLE `product`
-  MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `paymentmethod`
+  MODIFY `PaymentMID` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -161,7 +282,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

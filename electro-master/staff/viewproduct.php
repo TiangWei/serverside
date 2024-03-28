@@ -9,25 +9,28 @@
 
 	<title>Electro - HTML Ecommerce Template</title>
 
+
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="../electro-master/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
 
 	<!-- Slick -->
-	<link type="text/css" rel="stylesheet" href="../electro-master/css/slick.css" />
-	<link type="text/css" rel="stylesheet" href="../electro-master/css/slick-theme.css" />
+	<link type="text/css" rel="stylesheet" href="../css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="../css/slick-theme.css" />
 
 	<!-- nouislider -->
-	<link type="text/css" rel="stylesheet" href="../electro-master/css/nouislider.min.css" />
+	<link type="text/css" rel="stylesheet" href="../css/nouislider.min.css" />
 
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="../electro-master/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="../electro-master/css/style.css" />
+	<link type="text/css" rel="stylesheet" href="../css/style.css" />
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,74 +64,10 @@
 
 <body>
 	<!-- HEADER -->
-	<header>
-		<!-- TOP HEADER -->
-		<div id="top-header">
-			<div class="container">
-				<ul class="header-links pull-left">
-					<li><a href="#"><i class="fa fa-phone"></i> +0149902468</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i> tiangjw02@utar.my</a></li>
-					<li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
-				</ul>
-				<ul class="header-links pull-right">
-					<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-					<li><a href="../electro-master/index.php"><i class="fa fa-user-o"></i> My Account</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- /TOP HEADER -->
-
-		<!-- MAIN HEADER -->
-		<div id="header">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- LOGO -->
-					<div class="col-md-3">
-						<div class="header-logo">
-							<a href="#" class="logo">
-								<img src="./img/logo.png" alt="">
-							</a>
-						</div>
-					</div>
-					<!-- /LOGO -->
-
-					<!-- ACCOUNT -->
-					<div>
-						<div class="header-ctn">
-							<!-- Cart -->
-							<select id="productOptions">
-								<option value="management" selected>Product Management</option>
-								<option value="add">Add Product</option>
-								<option value="modify">Modify Product</option>
-							</select>
-
-							<!-- /Cart -->
-
-							<!-- Menu Toogle -->
-							<div class="menu-toggle">
-								<a href="#">
-									<i class="fa fa-bars"></i>
-									<span>Menu</span>
-								</a>
-							</div>
-							<!-- /Menu Toogle -->
-						</div>
-					</div>
-					<!-- /ACCOUNT -->
-				</div>
-				<!-- row -->
-			</div>
-			<!-- container -->
-		</div>
-		<!-- /MAIN HEADER -->
-	</header>
-	<!-- /HEADER -->
-
-	<!-- NAVIGATION -->
-
-	<!-- /NAVIGATION -->
+	<?php 
+		include ('header.php');
+		?>
+	
 
 	<!-- SECTION -->
 
@@ -139,7 +78,8 @@
 		<div class="container">
 			<div class="row">
 				<?php
-				require ('database.php');
+				
+				require ('../database.php');
 
 				// Initialize variables
 				$count = 1;
@@ -157,7 +97,7 @@
 				?>
 				<h2>View Product Records</h2>
 
-				<?php if (!empty ($message)): ?>
+				<?php if (!empty($message)): ?>
 					<p>
 						<?php echo $message; ?>
 					</p>
@@ -181,7 +121,7 @@
 										<?php echo $count; ?>
 									</td>
 									<td>
-										<img src="./img/<?php echo htmlspecialchars($row["image_url"]); ?>"
+										<img src="../img/<?php echo htmlspecialchars($row["image_url"]); ?>"
 											alt="<?php echo htmlspecialchars($row["product_name"]); ?>">
 									</td>
 									<td>

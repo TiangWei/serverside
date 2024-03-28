@@ -68,76 +68,12 @@
 
 <body>
 	<!-- HEADER -->
-	<header>
-		<!-- TOP HEADER -->
-		<div id="top-header">
-			<div class="container">
-				<ul class="header-links pull-left">
-					<li><a href="#"><i class="fa fa-phone"></i> +0149902468</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i> tiangjw02@utar.my</a></li>
-					<li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
-				</ul>
-				<ul class="header-links pull-right">
-					<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-					<li><a href="../electro-master/index.php"><i class="fa fa-user-o"></i> My Account</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- /TOP HEADER -->
 
-		<!-- MAIN HEADER -->
-		<div id="header">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- LOGO -->
-					<div class="col-md-3">
-						<div class="header-logo">
-							<a href="#" class="logo">
-								<img src="./img/logo.png" alt="">
-							</a>
-						</div>
-					</div>
-					<!-- /LOGO -->
-
-					<!-- ACCOUNT -->
-					<div>
-						<div class="header-ctn">
-							<!-- Cart -->
-							<select id="productOptions">
-								<option value="management" selected>Product Management</option>
-								<option value="add">Add Product</option>
-								<option value="modify">Modify Product</option>
-							</select>
-
-							<!-- /Cart -->
-
-							<!-- Menu Toogle -->
-							<div class="menu-toggle">
-								<a href="#">
-									<i class="fa fa-bars"></i>
-									<span>Menu</span>
-								</a>
-							</div>
-							<!-- /Menu Toogle -->
-						</div>
-					</div>
-					<!-- /ACCOUNT -->
-				</div>
-				<!-- row -->
-			</div>
-			<!-- container -->
-		</div>
-		<!-- /MAIN HEADER -->
-	</header>
+	<?php
+	include ("header.php");
+	?>
 	<!-- /HEADER -->
 
-	<!-- NAVIGATION -->
-
-	<!-- /NAVIGATION -->
-
-	<!-- SECTION -->
 
 	<div class="clearfix visible-sm visible-xs"></div>
 
@@ -148,15 +84,15 @@
 				<div class="container">
 					<div class="row">
 						<?php
-						require ('database.php');
+						require ('../database.php');
 						$id = $_REQUEST['id'];
 						$query = "SELECT * FROM product WHERE product_id=$id";
-						$result = mysqli_query($con, $query) or die (mysqli_error($con));
+						$result = mysqli_query($con, $query) or die(mysqli_error($con));
 						$row = mysqli_fetch_assoc($result);
 						?>
 						<?php
 						$status = "";
-						if (isset ($_POST['new']) && $_POST['new'] == 1) {
+						if (isset($_POST['new']) && $_POST['new'] == 1) {
 							$product_name = $_REQUEST['product_name'];
 							$price = $_REQUEST['price'];
 							$quantity = $_REQUEST['quantity'];
@@ -166,7 +102,7 @@
 							$update = "UPDATE product set 
 product_name='" . $product_name . "', price='" . $price . "', quantity_available='" . $quantity . "',
 description='" . $description . "',brand='" . $brand . "',category_id='" . $category . "' where product_id='" . $id . "'";
-							mysqli_query($con, $update) or die (mysqli_error($con));
+							mysqli_query($con, $update) or die(mysqli_error($con));
 							$status = "Product Record Updated Successfully. </br></br>
 <a href='viewproduct.php'>View Updated Record</a>";
 							echo '<p style="color:#008000;">' . $status . '</p>';
