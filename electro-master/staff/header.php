@@ -149,8 +149,8 @@
 						echo 'class="active"'; ?>>
 						<a class="submenu-toggle">Manage Products</a>
 						<ul class="submenu">
-							<li><a href="../upload.php">Add Product</a></li>
-							<li><a href="../viewproduct.php">Modify Product</a></li>
+							<li><a href="upload.php">Add Product</a></li>
+							<li><a href="viewproduct.php">Modify Product</a></li>
 						</ul>
 					</li>
 					<li <?php if ($currentpage == 'add_staff.php')
@@ -159,6 +159,9 @@
 					<li <?php if ($currentpage == 'view_staff.php')
 						echo 'class="active"'; ?>><a
 							href="view_staff.php">Manage Staffs</a></li>
+					<li <?php if ($currentpage == '..payment/checkpayment.php')
+					echo 'class=active'; ?>><a href="../payment/checkpayment.php">Payment</a></li>
+
 				</ul>
 				<!-- /NAV -->
 			</div>
