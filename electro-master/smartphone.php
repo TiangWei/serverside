@@ -1,3 +1,8 @@
+<?php
+//start session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -47,9 +52,14 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-					</ul>
+					<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
+					<!-- add user name if logged in -->
+					<li><a href="user/account.php"><i class="fa fa-user-o"></i> Hi,&nbsp;
+							<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
+							?>
+						</a></li>
+					<li><a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+				</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
