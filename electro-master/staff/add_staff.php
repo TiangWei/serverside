@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-input-content">
                     <div class="card login-form mb-0">
                         <div class="card-body pt-5 shadow">
-                            <h4 class="text-center">Add New Admin</h4>
+                            <h1 class="text-center">Add New Admin</h1>
                             <form method="POST" action=" <?php htmlspecialchars($_SERVER['PHP_SELF']) ?>">
 
                                 <div class="form-group">

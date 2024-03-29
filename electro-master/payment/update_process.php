@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "checkout";
+$database = "gadget_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

@@ -22,7 +22,7 @@ if (isset ($_POST['submit'])) {
       $row = mysqli_fetch_array($result);
       $email = $row["email"];
       $_SESSION['user_name'] = $row['name'];
-      header('location:view_staff.php'); // Redirect to admin_page.php
+      header('location:viewproduct.php'); // Redirect to admin_page.php
    } else {
       $error[] = 'incorrect email or password!';
    }

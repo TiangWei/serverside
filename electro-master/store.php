@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -46,10 +49,15 @@
 						<li><a href="#"><i class="fa fa-envelope-o"></i> tiangjw02@utar.my</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
 					</ul>
+
+					
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#"><i class="fa fa-user-o"></i> My Account <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
+					?></a></li>
+						<li><a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
 					</ul>
+
 				</div>
 			</div>
 			<!-- /TOP HEADER -->

@@ -28,8 +28,8 @@ include 'header.php';
 
       th {
          text-align: center;
-         background-color: #57A0D3;
-         color: white;
+         background-color: #c5c6c7;
+         color: black;
       }
 
       table {
@@ -39,8 +39,7 @@ include 'header.php';
 </head>
 
 <body>
-   <h3 class="title">Staff Management</h3>
-   <br><br>
+   <h1>Staff Management</h1>
 
    <table width="100%" border="1" style="border-collapse:collapse;">
       <thead>
@@ -59,7 +58,7 @@ include 'header.php';
          <?php
          $count = 1;
          $query = "SELECT * FROM staff ORDER BY staff_id ASC";
-         $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
+         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
          while ($row = mysqli_fetch_assoc($result)) {
             ?>
@@ -84,14 +83,14 @@ include 'header.php';
                </td>
                <td align="center">
 
-                     <i style="color:blue;" class="fa fa-pencil-square" aria-hidden="true">
-                        <a href="edit_staff.php?staff_id=<?php echo $row["staff_id"]; ?>">Edit</a> &nbsp; </i>
-                     <span style="font-weight:bold"> | &nbsp; </span>
-                     <i style="color:orange;" class="fa fa-trash" aria-hidden="true">
-                        <a href="delete_staff.php?staff_id=<?php echo $row["staff_id"]; ?>"
-                           onclick="return confirm('Are you sure you want to delete this product record?')">Delete</a>
-                     </i>
-                  
+                  <i style="color:blue;" class="fa fa-pencil-square" aria-hidden="true">
+                     <a href="edit_staff.php?staff_id=<?php echo $row["staff_id"]; ?>">Edit</a> &nbsp; </i>
+                  <span style="font-weight:bold"> | &nbsp; </span>
+                  <i style="color:orange;" class="fa fa-trash" aria-hidden="true">
+                     <a href="delete_staff.php?staff_id=<?php echo $row["staff_id"]; ?>"
+                        onclick="return confirm('Are you sure you want to delete this product record?')">Delete</a>
+                  </i>
+
             </tr>
 
             <?php $count++;

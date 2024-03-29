@@ -14,27 +14,27 @@ session_start();
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="../css/style1.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" >
 
    <style>
       body {
          background-image: url('../img/userlogin_bg.jpg');
          background-size: cover;
          background-position: center;
-         height: 100vh; /* Ensure full viewport height */
-         margin: 0; /* Remove default margin */
+         height: 100vh;
+         /* Ensure full viewport height */
+         margin: 0;
+         /* Remove default margin */
          display: flex;
-         
+
       }
 
       .form-container {
-         background-color: rgba(255, 255, 255, 0.5); /* Add opacity to create a translucent background */
+         background-color: rgba(255, 255, 255, 0.5);
+         /* Add opacity to create a translucent background */
          padding: 70px;
          border-radius: 50px;
       }
 
-      /* Style for the form */
-      /* Add your custom styles here */
    </style>
 </head>
 
@@ -44,7 +44,7 @@ session_start();
    require ('../config.php');
 
    // Check if login form submitted
-   if (isset ($_POST['email'])) {
+   if (isset($_POST['email'])) {
       // Sanitize user input
       $email = stripslashes($_REQUEST['email']);
       $email = mysqli_real_escape_string($conn, $email);
@@ -57,7 +57,7 @@ session_start();
               WHERE email='$email'
               AND password='" . md5($password) . "'"
       ;
-      $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
+      $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
       $rows = mysqli_num_rows($result);
       // If user found, set session and redirect 
       if ($rows == 1) {
@@ -67,32 +67,36 @@ session_start();
          header("Location: ../store.php");
          exit();
       } else {
-         echo "<div class='form'>
-<h3>Email/password is incorrect.</h3>
-<br/>Click here to <a href='login.php'>Login</a></div>";
+         $error[] = 'incorrect email or password!';
       }
-   } else {
-      ?>
+   }
+   ?>
 
 
-      <!-- Form handling -->
-            <div class="form-container">
+   <!-- Form handling -->
+   <div class="form-container">
 
-               <!-- User Login Form -->
-               <form action="" method="post" name="login">
-                  <h3>User Log In</h3>
-                  <input type="text" name="email" placeholder="Email" required /><br>
-                  <input type="password" name="password" placeholder="Password" required /><br>
-                  <input name="submit" type="submit" value="Login" class="form-btn"/>
-                  <p>Not registered yet? <a href='register_form.php'>Register Here</a></p>
-                  Staff? <a href='../staff/login_form.php'>Login as staff here</a>
-               </form>
-            </div>
-         
-      <!-- End of form handling -->
-   <?php } ?>
+      <!-- User Login Form -->
+      <form action="" method="post" name="login">
+         <h3>User Log In</h3>
+         <?php
+         if (isset($error)) {
+            foreach ($error as $error) {
+               echo '<span class="error-msg">' . $error . '</span>';
+            }
+            ;
+         } ?>
 
-   
+         <input type="text" name="email" placeholder="Email" required /><br>
+         <input type="password" name="password" placeholder="Password" required /><br>
+         <input name="submit" type="submit" value="Login" class="form-btn" />
+         <p>Not registered yet? <a href='register_form.php'>Register Here</a></p>
+         Staff? <a href='../staff/login_form.php'>Login as staff here</a>
+      </form>
+   </div>
+
+   <!-- End of form handling -->
+
 </body>
 
 
