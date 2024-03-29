@@ -320,8 +320,8 @@ if (isset ($_SESSION['user_name'])) {
                                             <label for="username"><Span>Username: </Span>&nbsp;</label>
                                             <?php echo $username; ?>
 
-                                            <br><br>
-                                            <h3>Personal Information</h3>
+                                            <br><br><br>
+                                            <h4>Personal Information:</h4> 
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="fname">Name</label>
