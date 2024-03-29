@@ -127,74 +127,171 @@ if (isset ($_SESSION['user_name'])) {
 
 <body>
     <!-- HEADER -->
-    <header>
-        <!-- TOP HEADER -->
-        <div id="top-header">
-            <div class="container">
-                <ul class="header-links pull-left">
-                    <li><a href="#"><i class="fa fa-phone"></i> +0149902468</a></li>
-                    <li><a href="#"><i class="fa fa-envelope-o"></i> tiangjw02@utar.my</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
-                </ul>
-                <ul class="header-links pull-right">
-                    <li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- /TOP HEADER -->
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					<ul class="header-links pull-left">
+						<li><a href="#"><i class="fa fa-phone"></i> +0149902468</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> tiangjw02@utar.my</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> 1594 Kampar</a></li>
+					</ul>
 
-        <!-- MAIN HEADER -->
-        <div id="header">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <!-- LOGO -->
-                    <div class="col-md-3">
-                        <div class="header-logo">
-                            <a href="#" class="logo">
-                                <img src="./img/logo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <!-- /LOGO -->
+					
+					<ul class="header-links pull-right">
+						<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
+						<li><a href="account.php"><i class="fa fa-user-o"></i> Hi, &nbsp;<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
+					?></a></li>
+						<li><a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+					</ul>
 
-                    <!-- ACCOUNT -->
-                    <div>
-                        <div class="header-ctn">
-                            <!-- Cart -->
-                            <select id="productOptions">
-                                <option value="management" selected>Product Management</option>
-                                <option value="add">Add Product</option>
-                                <option value="modify">Modify Product</option>
-                            </select>
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
 
-                            <!-- /Cart -->
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="#" class="logo">
+									<img src="./img/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
 
-                            <!-- Menu Toogle -->
-                            <div class="menu-toggle">
-                                <a href="#">
-                                    <i class="fa fa-bars"></i>
-                                    <span>Menu</span>
-                                </a>
-                            </div>
-                            <!-- /Menu Toogle -->
-                        </div>
-                    </div>
-                    <!-- /ACCOUNT -->
-                </div>
-                <!-- row -->
-            </div>
-            <!-- container -->
-        </div>
-        <!-- /MAIN HEADER -->
-    </header>
-    <!-- /HEADER -->
+						<!-- ACCOUNT -->
+						<div >
+							<div class="header-ctn">
+										<?php
+											// Step 1: Establish connection to MySQL database
+											$servername = "localhost";
+											$username = "root"; // Replace with your MySQL username
+											$password = ""; // Replace with your MySQL password
+											$dbname = "gadget_db"; // Replace with your database name
 
-    <!-- NAVIGATION -->
+											$conn = new mysqli($servername, $username, $password, $dbname);
 
-    <!-- /NAVIGATION -->
+											// Check connection
+											if ($conn->connect_error) {
+												die("Connection failed: " . $conn->connect_error);
+											}
+
+											$sql = "SELECT * FROM cart_item"; 
+											$result = $conn->query($sql);
+											$selected_item = 0;
+											$subtotal = 0;
+											$cart_products = array(); // Associative array to store products by ID
+
+											// Step 2: Loop through cart items
+											if ($result->num_rows > 0) {
+												while($row = $result->fetch_assoc()) {
+													$sql1 = "SELECT * FROM product WHERE product_id=".$row["product_id"]; 
+													$result1 = $conn->query($sql1);
+													$row1 = $result1->fetch_assoc();
+
+													$product_id = $row['product_id'];
+													$quantity = $row['quantity'];
+													$price = $row1['price'];
+
+													// Check if product already exists in cart
+													if (array_key_exists($product_id, $cart_products)) {
+														// Update quantity and subtotal
+														$cart_products[$product_id]['quantity'] += $quantity;
+														$subtotal += $quantity * $price;
+													} else {
+														// Add new product entry
+														$cart_products[$product_id] = array(
+															'quantity' => $quantity,
+															'price' => $price,
+															'product_name' => $row1['product_name'], // Store product name
+															'image_url' => $row1['image_url'] // Store image URL
+														);
+														$subtotal += $quantity * $price;
+														$selected_item++; // Increment total selected items
+													}
+												}
+											}
+
+											// Step 3: Display cart products
+											echo "<div class='dropdown'>";
+											echo "<a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>";
+											echo "<i class='fa fa-shopping-cart'></i>";
+											echo "<span>Your Cart</span>";
+											echo "<div class='qty'>".$selected_item."</div>";
+											echo "</a>";
+											echo "<div class='cart-dropdown'>";
+											echo "<div class='cart-list'>";
+
+											foreach ($cart_products as $product_id => $product) {
+												echo "<div class='product-widget'>";
+												echo "<div class='product-img'>";
+												echo "<img src='./img/" . $product["image_url"] . "' alt=''>";
+												echo "</div>";
+												echo "<div class='product-body'>";
+												echo "<h3 class='product-name'><a href='#'>" . $product["product_name"] . "</a></h3>";
+												echo "<h4 class='product-price'><span class='qty'>" . $product['quantity'] . "x</span>$" . $product['price'] . "</h4>";
+												echo "</div>";
+												echo "<button class='delete' data-product-id='" . $product_id . "'><i class='fa fa-close'></i></button>";
+												echo "</div>";
+											}
+
+											echo "</div>"; // Close cart-list
+											echo "<div class='cart-summary'>";
+											echo "<small>".$selected_item." Item(s) selected</small>";
+											echo "<h5>SUBTOTAL: $".$subtotal."</h5>";
+											echo "</div>"; // Close cart-summary
+											echo "<div class='cart-btns'>";
+											echo "<a href='#'>View Cart</a>";
+											echo "<a href='#'>Checkout  <i class='fa fa-arrow-circle-right'></i></a>";
+											echo "</div>"; // Close cart-btns
+											echo "</div>"; // Close cart-dropdown
+											echo "</div>"; // Close dropdown
+
+											$conn->close();
+										?>
+
+
+								<!-- Menu Toogle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Menu</span>
+									</a>
+								</div>
+								<!-- /Menu Toogle -->
+							</div>
+						</div>
+						<!-- /ACCOUNT -->
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li><a href="../store.php">Home</a></li>
+					</ul>
+					<!-- /NAV -->
+				</div>
+			</div>
+		</nav>
+		<!-- /NAVIGATION -->
 
     <!-- SECTION -->
 

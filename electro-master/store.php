@@ -53,7 +53,7 @@ session_start();
 					
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> RM</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
+						<li><a href="user/account.php"><i class="fa fa-user-o"></i> Hi, &nbsp;<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
 					?></a></li>
 						<li><a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
 					</ul>
