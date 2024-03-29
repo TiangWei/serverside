@@ -50,7 +50,7 @@
 
   <div class="bg">
     <div class="form-fill">
-      <h1 class="text-center pb-4">Welcome to login </h1>
+      <h1 class="text-center pb-4">Welcome to Gadget-Online Orders</h1>
       <h6 class="text-center pb-4">Please sign-in below to continue</h6>
 
       <div class="container mt-4">
