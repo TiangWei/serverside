@@ -60,7 +60,7 @@ session_start();
 							<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
 							?>
 						</a></li>
-					<li><a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+					<li><a href="user/logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
 				</ul>
 
 			</div>
