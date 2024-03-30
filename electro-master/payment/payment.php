@@ -407,7 +407,7 @@ document.getElementById('checkout-btn').addEventListener('click', function (even
 $servername = "localhost";
 $username = "root"; // Update with your database username
 $password = ""; // Update with your database password
-$database = "checkout";
+$database = "gadget_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
