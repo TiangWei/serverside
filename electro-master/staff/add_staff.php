@@ -2,7 +2,7 @@
 
 require_once ("header.php");
 
-require ("../config.php");
+require ("../database.php");
 ?>
 
 <?php
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty ($name) && !empty ($email) && !empty ($password) && !empty ($dob)) {
         $sel_query = "SELECT email FROM staff WHERE email = '$email'";
-        $result = mysqli_query($conn, $sel_query) or die (mysqli_error($conn));
+        $result = mysqli_query($con, $sel_query) or die (mysqli_error($con));
 
         $row = mysqli_fetch_array($result);
         if (mysqli_num_rows($result) > 0) {
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             $query = "INSERT into staff (name, email, password, dob, createdOn) VALUES ('$name', '$email', '".md5($password)."', '$dob', '$createdOn')";
-            $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
+            $result = mysqli_query($con, $query) or die (mysqli_error($con));
             echo "<p style='color:green; font-size: 20px;'>Staff account created successfully!</p>";
 
             if ($result) {

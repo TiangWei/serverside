@@ -1,11 +1,11 @@
 <?php
 
 include ("../auth.php");
-require ("../config.php");
+require ("../database.php");
 
 $staff_id = $_REQUEST['staff_id'];
 $query = "SELECT * FROM staff WHERE staff_id='$staff_id'";
-$result = mysqli_query($conn, $query) or die (mysqli_error($conn));
+$result = mysqli_query($con, $query) or die (mysqli_error($con));
 $row = mysqli_fetch_array($result);
 
 $status = "";
@@ -18,11 +18,11 @@ if (isset ($_POST['submit'])) {
 
     // Update the staff record in the database
     $updateQuery = "UPDATE staff SET name='$name', email='$email', dob='$dob', createdOn='$createdOn' WHERE staff_id='$staff_id'";
-    $result = mysqli_query($conn, $updateQuery) or die (mysqli_error($conn));
+    $result = mysqli_query($con, $updateQuery) or die (mysqli_error($con));
 
     // Retrieve the updated record
     $updatedQuery = "SELECT * FROM staff WHERE staff_id='$staff_id'";
-    $updatedResult = mysqli_query($conn, $updatedQuery) or die (mysqli_error($conn));
+    $updatedResult = mysqli_query($con, $updatedQuery) or die (mysqli_error($con));
     $row = mysqli_fetch_array($updatedResult);
 
     // Set the status message

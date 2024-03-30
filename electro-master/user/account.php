@@ -1,6 +1,6 @@
 <?php
 //new account
-require ('../config.php');
+require ('../database.php');
 include ('../auth.php');
 
 $status = '';
@@ -19,18 +19,18 @@ if (isset($_POST['action']) && $_POST['action'] == "updateAccount") {
                     email='$email', address = '$address', city = '$city', zip = '$zip' 
                     WHERE name = '" . $_SESSION['user_name'] . "'";
 
-    if (mysqli_query($conn, $updateQuery)) {
+    if (mysqli_query($con, $updateQuery)) {
         $status = "User information updated successfully.";
     } else {
         // Handle update query error
-        $status = "Error updating user information: " . mysqli_error($conn);
+        $status = "Error updating user information: " . mysqli_error($con);
     }
 }
 
 // Fetch user data
 if (isset($_SESSION['user_name'])) {
     $sel_query = "SELECT * FROM user WHERE name = '" . $_SESSION['user_name'] . "'";
-    $result = mysqli_query($conn, $sel_query);
+    $result = mysqli_query($con, $sel_query);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -177,15 +177,15 @@ if (isset($_SESSION['user_name'])) {
                             $password = ""; // Replace with your MySQL password
                             $dbname = "gadget_db"; // Replace with your database name
                             
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            $con = new mysqli($servername, $username, $password, $dbname);
 
                             // Check connection
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
+                            if ($con->connect_error) {
+                                die("Connection failed: " . $con->connect_error);
                             }
 
                             $sql = "SELECT * FROM cart_item";
-                            $result = $conn->query($sql);
+                            $result = $con->query($sql);
                             $selected_item = 0;
                             $subtotal = 0;
                             $cart_products = array(); // Associative array to store products by ID
@@ -194,7 +194,7 @@ if (isset($_SESSION['user_name'])) {
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     $sql1 = "SELECT * FROM product WHERE product_id=" . $row["product_id"];
-                                    $result1 = $conn->query($sql1);
+                                    $result1 = $con->query($sql1);
                                     $row1 = $result1->fetch_assoc();
 
                                     $product_id = $row['product_id'];
@@ -255,7 +255,7 @@ if (isset($_SESSION['user_name'])) {
                             echo "</div>"; // Close cart-dropdown
                             echo "</div>"; // Close dropdown
                             
-                            $conn->close();
+                            $con->close();
                             ?>
 
 

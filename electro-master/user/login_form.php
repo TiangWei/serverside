@@ -41,15 +41,15 @@ session_start();
 <body>
    <?php
    //Need db file
-   require ('../config.php');
+   require ('../database.php');
 
    // Check if login form submitted
    if (isset($_POST['email'])) {
       // Sanitize user input
       $email = stripslashes($_REQUEST['email']);
-      $email = mysqli_real_escape_string($conn, $email);
+      $email = mysqli_real_escape_string($con, $email);
       $password = stripslashes($_REQUEST['password']);
-      $password = mysqli_real_escape_string($conn, $password);
+      $password = mysqli_real_escape_string($con, $password);
 
       // Retrieve users from DB 
       $query = "SELECT * 
@@ -57,7 +57,7 @@ session_start();
               WHERE email='$email'
               AND password='" . md5($password) . "'"
       ;
-      $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+      $result = mysqli_query($con, $query) or die(mysqli_error($con));
       $rows = mysqli_num_rows($result);
       // If user found, set session and redirect 
       if ($rows == 1) {

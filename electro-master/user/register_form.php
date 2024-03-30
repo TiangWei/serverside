@@ -1,19 +1,19 @@
 <?php
 
-@include '../config.php';
+@include '../database.php';
 
 if(isset($_POST['submit'])){
 
    $status = "";
 
-   $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
+   $name = mysqli_real_escape_string($con, $_POST['name']);
+   $email = mysqli_real_escape_string($con, $_POST['email']);
    $pass = md5($_POST['password']);
    $cpass = md5($_POST['c_password']);
 
    $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
 
-   $result = mysqli_query($conn, $select);
+   $result = mysqli_query($con, $select);
 
    if(mysqli_num_rows($result) > 0){
 
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
          $error[] = 'password not matched!';
       }else{
          $insert = "INSERT INTO user(name, email, password) VALUES('$name','$email','$pass')";
-         mysqli_query($conn, $insert);
+         mysqli_query($con, $insert);
          echo "<script>alert('user registered successfully!'); window.location.href = 'login_form.php';</script>";
       
       }

@@ -1,21 +1,21 @@
 <?php
 session_start();
 
-require ("../config.php");
+require ("../database.php");
 ?>
 
 <?php
 if (isset ($_POST['submit'])) {
 
    $email = strip_tags($_REQUEST['email']);
-   $email = mysqli_real_escape_string($conn, $email);
+   $email = mysqli_real_escape_string($con, $email);
    $pass = $_REQUEST['password'];
-   $pass = mysqli_real_escape_string($conn, $pass);
+   $pass = mysqli_real_escape_string($con, $pass);
 
 
    $select = " SELECT * FROM staff WHERE email = '$email' && password = '".md5($pass)."' ";
 
-   $result = mysqli_query($conn, $select) or die (mysqli_error($conn));
+   $result = mysqli_query($con, $select) or die (mysqli_error($con));
 
    if (mysqli_num_rows($result) > 0) {
 

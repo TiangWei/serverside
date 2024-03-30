@@ -1,6 +1,6 @@
 <?php
 
-require '../config.php';
+require '../database.php';
 include '../auth.php';
 
 include 'header.php';
@@ -58,7 +58,7 @@ include 'header.php';
          <?php
          $count = 1;
          $query = "SELECT * FROM staff ORDER BY staff_id ASC";
-         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+         $result = mysqli_query($con, $query) or die(mysqli_error($con));
 
          while ($row = mysqli_fetch_assoc($result)) {
             ?>
